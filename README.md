@@ -97,6 +97,7 @@ The **.text** section **must always start with the global** directive, which ind
     global main   ; Define starting point of the code
     
  ```
+</br>
 
 #### Instructions <a name="instructions"></a>
 An assembly language program is a series of statements, which are either assembly language **instructions** such as ADD and MOV, or statements called **directives**. An *instruction* tells the CPU what to do, while a *directive* (also called pseudo-instructions) gives instruction to the assembler.
@@ -121,10 +122,20 @@ The **label field** allows the program to refer to a line of code by name. The l
       main:       ; Label starting point
     
  ```
+ </br>
 
-The **mnemonics** and **operands** together perform the real work of the program and accomplish the tasks. Statements like *ADD A, B* where *ADD* is the **mnemonic**, wich produce opcodes, and *A* and *B* are **operands**.
-
-The **comment field** begins with a semicolon which is a comment indicator.</br></br>
+The **mnemonics** and **operands** together perform the real work of the program and accomplish the tasks. Statements like *mov rax, 4* where *mov* is the **mnemonic**, wich produce opcodes, and *rax* and *4* are **operands**. In this case, *mov rax,4* is used to move 4 (sys_write) to rax register.
+ 
+ ```assembly
+   mov rax,4
+ ```
+ </br>
+ 
+The **comment field** begins with a semicolon (;) which is a comment indicator. 
+ ```assembly
+   mov rax,4 ; This is a comment
+ ```
+</br>
 
 #### Hello World <a name="hello-world"></a>
 Let's see a **Hello World** code example.
