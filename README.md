@@ -8,12 +8,12 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
   * [Instructions Cycle](#instruction-cycle)
 * [Introduction to Assembly](#introduction-assembler)
   * [Structure of Assembly Language](#structure-of-assembly)
-    * [Variables](#variables)
+    * [Define directives](#define-directives)
     * [Constants](#constants)
     * [Global](#global)
     * [Instructions](#instructions)
     * [Code Example: Hello World](#hello-world)
-  * [Execute](#execute)
+  * [Execute Assembly code](#execute)
     * [Assembling](#assembling)
     * [Running](#running)
     * [Debugging](#debuging) 
@@ -40,10 +40,14 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
   * [Compare (CMP)](#compare)
   * [Unconditial Jump](#unconditial-jump) 
   * [Conditional Jump](#conditial-jump) 
-  * [IF](#if)
-  * [IF/ELSE](#if-else)  
+  * [If](#if)
+  * [If/Else](#if-else)
+  * [Switch](#switch)  
 * [Loops](#loops)
-* [Macros and Procedures](#macros-procedures)
+  * [While](#while) 
+  * [Do-While](#do-while) 
+  * [For](#for) 
+* [Subroutines](#subroutines)
 * [Files](#files)
 * [Assembly and C](#assembly-c)
 </br>
@@ -56,19 +60,19 @@ An assembler program written with **NASM** syntax is formatted for three *sectio
 
  ```assembly
   
-  section .data   ; Initialized data
+  section .data   ;Initialized data
   
-  section .bss    ; Non initialized data
+  section .bss    ;Non initialized data
   
-  section .text   ; Main code
+  section .text   ;Starts the actual program code
   
  ```
  
 The **.bss** section is not necessary if you initialize all the variables that are declared to the **.data** section.</br></br>
 
-#### Variables <a name="variables"></a>
+#### Define directives <a name="define-directives"></a>
 
-**NASM** provides various define directives for reserving storage space for variables. The define assembler directive is used for allocation of storage space. It can be used to reserve as well as initialize one or more bytes.
+**NASM** provides various **define directives** for **reserving storage space for variables**. The **define** assembler directive is used for allocation of storage space. **It can be used to reserve as well as initialize one or more bytes**.
 
 The syntax for storage allocation statement for initialized data is.
 
@@ -95,14 +99,14 @@ Let's see a code example.
 
 ```assembly
   
-  section .data                 ; Initialized data
+  section .data                 ;Initialized data
     
-    choice        DB  'y'       ; Allocates 1 byte
-    number        DW  12345     ; Allocates 2 bytes
-    real_number1  DD  1.234     ; Allocates 4 bytes
-    real_number2  DQ  123.456   ; Allocates 8 bytes
+    choice        DB  'y'       ;Allocates 1 byte
+    number        DW  12345     ;Allocates 2 bytes
+    real_number1  DD  1.234     ;Allocates 4 bytes
+    real_number2  DQ  123.456   ;Allocates 8 bytes
   
-  section .text                 ; Main code
+  section .text                 ;Starts the actual program code
   
  ```
  </br>
@@ -110,15 +114,17 @@ Let's see a code example.
 #### Constants <a name="constants"></a>
 
 #### Global <a name="global"></a>
-The **.text** section **must always start with the global** directive, which indicates to the GCC what is the starting point of the code.
+**Global** directive is **NASM specific**. It is for exporting symbols in your code to where it points in the object code generated. Here you mark `_start` symbol global so its name is added in the object code (a.o). The linker (ld) can read that symbol in the object code and its value so it knows where to mark as an entry point in the output executable. When you run the executable it starts at where marked as `_start` in the code.
+
+If a global directive missing for a symbol, that symbol will not be placed in the object code's export table so linker has no way of knowing about the symbol.
 
  ```assembly
  
-  section .data   ; Initialized data
+  section .data     ;Initialized data
   
-  section .text   ; Main code
+  section .text     ;Starts the actual program code
     
-    global main   ; Define starting point of the code
+    global _start   ;Tell linker where is the Entry Point of the aplication
     
  ```
 </br>
@@ -137,13 +143,13 @@ The **label field** allows the program to refer to a line of code by name. The l
 
  ```assembly
  
-  section .data   ; Initialized data
+  section .data     ;Initialized data
   
-  section .text   ; Main code
+  section .text     ;Starts the actual program code
     
-    global main   ; Define starting point of the code
+    global _start   ;Tell linker where is the Entry Point of the aplication
     
-      main:       ; Label starting point
+      _start:       ;Entry Point of the aplication
     
  ```
  </br>
@@ -157,7 +163,7 @@ The **mnemonics** and **operands** together perform the real work of the program
  
 The **comment field** begins with a semicolon (;) which is a comment indicator. 
  ```assembly
-   mov rax,4 ; This is a comment
+   mov rax,4 ;This is a comment
  ```
 </br>
 
@@ -167,28 +173,29 @@ Let's see a **Hello World** code example.
  ```assembly
  
   ;hello-world.asm
-  section .data                 ;01: Initialized data
+  section .data                   ;01: Initialized data
 
-    msg db "Hello World!!",10   ;02: Define msg variable
-    length equ $ - msg          ;03: Define length constant based on msg variable length
+    msg db "Hello World!!",10     ;02: Define msg variable
+    length equ $ - msg            ;03: Define length constant based on msg variable length
 
-  section .text                 ;04: Main code
+  section .text                   ;04: Starts the actual program code
 
-    global main                 ;05: Define starting point of the code
+    global _start                 ;05: Tell linker where is the Entry Point of the aplication
 
-      main:                     ;06: Label starting point
+      _start:                     ;06: Entry Point of the aplication
 
-        mov rax,4               ;07: Move 4 (sys_write) to rax
-        mov rbx,1               ;08: Move 1 (stdout) to rbx
+        mov rax,4                 ;07: Move 4 (sys_write) to rax
+        mov rbx,1                 ;08: Move 1 (stdout) to rbx
 
-        mov rcx,msg             ;09: Move msg to rcx
-        mov rdx,length          ;10: Move length to rdx
+        mov rcx,msg               ;09: Move msg to rcx
+        mov rdx,length            ;10: Move length to rdx
 
-        int 80h                 ;11: system call (write msg to stdout)
+        int 80h                   ;11: system call (write msg to stdout)
 
-        mov rax,1               ;12: sys_exit call
-        mov rbx,0               ;13: return 0 (exit status)
+        mov rax,1                 ;12: sys_exit call
+        mov rbx,0                 ;13: return 0 (exit status)
 
-        int 80h                 ;14: system call (finish execution 0)
+        int 80h                   ;14: system call (finish execution 0)
     
  ```
+ 
