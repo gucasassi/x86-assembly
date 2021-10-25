@@ -6,25 +6,47 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
   * [Components](#components)
   * [CPU Registers](#cpu-registers)
   * [Instructions Cycle](#instruction-cycle)
-  * [Addressing Modes](#addressing-modes)
-  * [Interrupts](#interrupts)
 * [Introduction to Assembly](#introduction-assembler)
   * [Structure of Assembly Language](#structure-of-assembly)
     * [Variables](#variables)
+    * [Constants](#constants)
+    * [Global](#global)
     * [Instructions](#instructions)
-    * [Hello World](#hello-world)
-  * [Assembling and Running](#assembling-running)
-  * [Add and Subtract](#add-substract)
-  * [Multiply and Divide](#add-substract)
+    * [Code Example: Hello World](#hello-world)
+  * [Execute](#execute)
+    * [Assembling](#assembling)
+    * [Running](#running)
+    * [Debugging](#debuging) 
+* [Address Modes](#address-modes)
+  * [Register Addressing](#register)   
+  * [Immediate Addressing](#immediate)   
+  * [Direct Memory Addressing](#direct-memory)   
+  * [Direct Offset Addressing](#direct-offset)   
+  * [Indirect Offset Addressing](#indirect-offset)   
+  * [MOV - Move](#move)  
+* [Arithmetic instructions](#arithmetic-instructions)
+  * [Increment (INC)](#increment) 
+  * [Decrement (DEC)](#decrement)
+  * [Addition (ADD)](#addition)
+  * [Substraction (SUB)](#substraction)
+  * [Multiply (MUL/IMUL)](#multiply)
+  * [Divide (DIV/IDIV)](#divide)     
+* [Logical instructions](#logical-instructions)
+  * [AND](#and)
+  * [OR](#or)  
+  * [XOR](#xor)  
+  * [NOT](#not)  
+* [Conditions](#conditions)
+  * [Compare (CMP)](#compare)
+  * [Unconditial Jump](#unconditial-jump) 
+  * [Conditional Jump](#conditial-jump) 
+  * [IF](#if)
+  * [IF/ELSE](#if-else)  
+* [Loops](#loops)
+* [Macros and Procedures](#macros-procedures)
+* [Files](#files)
+* [Assembly and C](#assembly-c)
 </br>
-
-## Architecture of CPU <a name="architecture-cpu"></a>
-
-### Components <a name="components"></a>
-### CPU Registers <a name="cpu-registers"></a>
-### Instructions Cycle <a name="instruction-cycle"></a>
-### Addressing Modes <a name="addressing-modes"></a>
-### Interrupts <a name="interrupts"></a>
 
 ## Introduction to Assembly <a name="introduction-assembler"></a>
 Assembly languages were developed to provide **mnemonics** or symbols for the machine level code instructions. Assembly language programs consist of mnemonics, thus they should be translated into machine code. A program that is responsible for this conversion is known as **assembler**.
@@ -34,9 +56,9 @@ An assembler program written with **NASM** syntax is formatted for three *sectio
 
  ```assembly
   
-  section .data   ; Initialize data
+  section .data   ; Initialized data
   
-  section .bss    ; Initialize data
+  section .bss    ; Non initialized data
   
   section .text   ; Main code
   
@@ -73,7 +95,7 @@ Let's see a code example.
 
 ```assembly
   
-  section .data                 ; Initialize data
+  section .data                 ; Initialized data
     
     choice        DB  'y'       ; Allocates 1 byte
     number        DW  12345     ; Allocates 2 bytes
@@ -85,12 +107,14 @@ Let's see a code example.
  ```
  </br>
 
-#### Global main <a name="global-main"></a>
+#### Constants <a name="constants"></a>
+
+#### Global <a name="global"></a>
 The **.text** section **must always start with the global** directive, which indicates to the GCC what is the starting point of the code.
 
  ```assembly
  
-  section .data   ; Initialize data
+  section .data   ; Initialized data
   
   section .text   ; Main code
     
@@ -113,7 +137,7 @@ The **label field** allows the program to refer to a line of code by name. The l
 
  ```assembly
  
-  section .data   ; Initialize data
+  section .data   ; Initialized data
   
   section .text   ; Main code
     
@@ -137,16 +161,16 @@ The **comment field** begins with a semicolon (;) which is a comment indicator.
  ```
 </br>
 
-#### Hello World <a name="hello-world"></a>
+#### Code Example: Hello World <a name="hello-world"></a>
 Let's see a **Hello World** code example.
 
  ```assembly
  
   ;hello-world.asm
-  section .data                 ;01: Initialize data
+  section .data                 ;01: Initialized data
 
     msg db "Hello World!!",10   ;02: Define msg variable
-    length equ $ - msg          ;03: Define length variable based on msg length
+    length equ $ - msg          ;03: Define length constant based on msg variable length
 
   section .text                 ;04: Main code
 
@@ -165,10 +189,6 @@ Let's see a **Hello World** code example.
         mov rax,1               ;12: sys_exit call
         mov rbx,0               ;13: return 0 (exit status)
 
-        int 80h                 ;14: system call
+        int 80h                 ;14: system call (finish execution 0)
     
  ```
-
-### Assembling and Running <a name="assembling-running"></a>
-### Add and Subtract <a name="add-substract"></a>
-### Multiply and Divide <a name="add-substract"></a>
