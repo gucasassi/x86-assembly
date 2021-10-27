@@ -361,6 +361,9 @@ They are used to store the data with which the operations will be carried out wi
 
 Are used for **arithmetic, logical, and other operations**. The **Data registers** are 64-bit *RAX*, *RBX*, *RCX* and *RDX* registers and corresponding 32-bit right portions *EAX*, *EBX*, *ECX* and *EDX*. 
 
+<p align="center">
+  <img src="img/data-registers.png" alt="Data Registers" width="600"/>
+</p>
 
 There are **four categories** of data registers:
 
