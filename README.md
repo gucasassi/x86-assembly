@@ -19,7 +19,16 @@ The Netwide Assembler (NASM) is an assembler and disassembler for the Intel x86 
   * [Linking](#linking)
   * [Running](#running)
 * [Memory Segments](#memory-segments)
+  * [Data segment](#data-segment)
+  * [Code segment](#code-segment)
+  * [Stack](#stack)
 * [Registers](#registers)
+  * [General registers](#general-registers)  
+    * [Data registers](#general-registers-data) 
+    * [Pointer registers](#general-registers-pointer) 
+    * [Index registers](#general-registers-index) 
+  * [Control registers](#control-registers)  
+  * [Segment registers](#segment-registers)  
 * [System Calls](#system-calls)
 * [Address Modes](#address-modes)
   * [Register Addressing](#register)   
@@ -318,3 +327,52 @@ Hello World!!
 </br>
 
 ## Memory Segments <a name="memory-segments"></a>
+
+We have already discussed the **three sections** of an assembly program. **These sections represent various memory segments as well**. A **segmented memory model divides the system memory into groups of independent segments** referenced by pointers located in the segment registers. **Each segment is used to contain a specific type of data**. One segment is used to contain instruction codes, another segment stores the data elements, and a third segment keeps the program stack. </br>
+
+In the light of the above discussion, we can specify various memory segments as: **Data Segment**, **Code Segment** and **Stack**.</br></br>
+
+### Data Segment <a name="data-segment"></a>
+
+It is represented by ``.data`` section and the ``.bss``. The ``.data`` section **is used to declare the memory region**, where data elements are stored for the program. This section cannot be expanded after the data elements are declared, and it remains static throughout the program.
+
+The ``.bss`` section is also a static memory section that contains buffers for data to be declared later in the program. This buffer memory is zero-filled.
+</br>
+
+### Code Segment <a name="code-segment"></a>
+
+It is represented by ``.text`` section. This **defines an area in memory that stores the instruction codes**. This is also a fixed area.</br></br>
+
+### Stack <a name="stack"></a>
+
+This segment contains **data values passed to functions and procedures** within the program.</br></br>
+
+## Registers <a name="registers"></a>
+
+Processor operations mostly involve processing data. This data can be stored in memory and accessed from thereon. However, reading data from and storing data into memory slows down the processor, as it involves complicated processes of sending the data request across the control bus and into the memory storage unit and getting the data through the same channel.
+
+To speed up the processor operations, the processor includes some **internal memory storage** locations, called **registers**.</br></br>
+
+### General registers <a name="general-registers"></a>
+
+They are used to store the data with which the operations will be carried out within the program.
+
+#### Data registers <a name="general-registers-data"></a>
+
+Are used for **arithmetic, logical, and other operations**. The **Data registers** are 64-bit *RAX*, *RBX*, *RCX* and *RDX* registers and corresponding 32-bit right portions *EAX*, *EBX*, *ECX* and *EDX*. 
+
+
+There are **four categories** of data registers:
+
+1. **AX** is the primary **accumulator**: Is used in input/output and most arithmetic instructions. For example, in multiplication operation, one operand is stored in EAX or AX or AL register according to the size of the operand.
+2. **BX** is the **base** register: As it could be used in indexed addressing.
+3. **CX** is the **counter** register: As the ECX, CX registers store the loop count in iterative operations.
+4. **DX** is the **data** register: It is also used in input/output operations. It is also used with AX register along with DX for multiply and divide operations involving large values.
+</br>
+
+#### Pointer registers <a name="general-registers-pointer"></a>
+#### Index registers <a name="general-registers-index"></a>
+
+### Control registers <a name="control-registers"></a>
+
+### Segment registers <a name="segment-registers"></a>
