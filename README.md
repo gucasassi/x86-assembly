@@ -238,7 +238,7 @@ Let's see an example of how to convert assembly code into object code:
 
 <sub>*hello-world.asm*</sub>
 
-```console
+```bash
 
 yasm –f elf64 –g dwarf2 hello-world.asm
 
@@ -252,6 +252,17 @@ Once the above command is executed, if no error has occurred, we should get a ``
 > ``–g dwarf2``: Parameter to **generate information for debugging** of the program; **DWARF2** is a debugging information format that is strongly associated with the **ELF** object code.
 
 > ``hello-world.asm``: Source code. 
+</br>
+
+We can check that the file has been generated with the ``ls`` command.
+
+<sub>*ls*</sub>
+
+```console
+
+hello-world.asm  hello-world.o
+
+```
 </br>
 
 ### Linking <a name="linking"></a>
@@ -276,9 +287,20 @@ Once the above command is executed, if no error has occurred, we should get a ``
 > ``hello-world.o``: Object code. 
 </br>
 
+We can check that the file has been generated with the ``ls`` command.
+
+<sub>*ls*</sub>
+
+```console
+
+hello-world  hello-world.asm  hello-world.o
+
+```
+</br>
+
 ### Running <a name="running"></a>
 
-At this point we can run the program with the following command:
+At this point we can run the program with the following command:</br></br>
 
 ```console
 
@@ -286,7 +308,7 @@ At this point we can run the program with the following command:
 
 ```
 </br>
-Once the command is executed we should see the following message
+Once the command is executed we should see the following message.</br></br>
 
 ```console
 
