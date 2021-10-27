@@ -379,7 +379,7 @@ There are **four categories** of data registers:
 There are three categories of pointer registers:</br></br>
 
 <p align="center">
-  <img src="img/data-registers.png" alt="Data Registers" width="800"/>
+  <img src="img/pointer-registers.png" alt="Data Registers" width="800"/>
 </p>
 </br>
 
