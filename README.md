@@ -359,21 +359,35 @@ They are used to store the data with which the operations will be carried out wi
 
 #### Data registers <a name="general-registers-data"></a>
 
-Are used for **arithmetic, logical, and other operations**. The **Data registers** are 64-bit *RAX*, *RBX*, *RCX* and *RDX* registers and corresponding 32-bit right portions *EAX*, *EBX*, *ECX* and *EDX*. 
+Are used for **arithmetic, logical, and other operations**. The **Data registers** are 64-bit *RAX*, *RBX*, *RCX* and *RDX* registers and corresponding 32-bit right portions *EAX*, *EBX*, *ECX* and *EDX*.</br></br>
 
 <p align="center">
-  <img src="img/data-registers.png" alt="Data Registers" width="600"/>
+  <img src="img/data-registers.png" alt="Data Registers" width="800"/>
 </p>
+</br>
 
 There are **four categories** of data registers:
 
-1. **AX** is the primary **accumulator**: Is used in input/output and most arithmetic instructions. For example, in multiplication operation, one operand is stored in EAX or AX or AL register according to the size of the operand.
-2. **BX** is the **base** register: As it could be used in indexed addressing.
-3. **CX** is the **counter** register: As the ECX, CX registers store the loop count in iterative operations.
-4. **DX** is the **data** register: It is also used in input/output operations. It is also used with AX register along with DX for multiply and divide operations involving large values.
+1. **AX** is the primary **accumulator**: Is used in **input/output and most arithmetic instructions**. For example, in multiplication operation, one operand is stored in EAX or AX or AL register according to the size of the operand.
+2. **BX** is the **base** register: As it could be used in **indexed addressing**.
+3. **CX** is the **counter** register: As the ECX, CX registers **store the loop count in iterative operations**.
+4. **DX** is the **data** register: It is **also used in input/output operations**. It is also used with AX register along with DX for multiply and divide operations involving large values.
 </br>
 
 #### Pointer registers <a name="general-registers-pointer"></a>
+
+There are three categories of pointer registers:</br></br>
+
+<p align="center">
+  <img src="img/data-registers.png" alt="Data Registers" width="800"/>
+</p>
+</br>
+
+1. **Base Pointer** (BP): This register mainly helps in **referencing the parameter variables passed to a subroutine**.
+2. **Stack Pointer** (SP): This register **provides the offset value within the program stack**.
+3. **Instruction Pointer** (IP): This register **stores the offset address of the next instruction to be executed**.
+</br>
+
 #### Index registers <a name="general-registers-index"></a>
 
 ### Control registers <a name="control-registers"></a>
